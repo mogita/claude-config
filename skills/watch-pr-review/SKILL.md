@@ -31,7 +31,7 @@ Right after any `git push` to a PR branch (the push triggers a fresh review from
    - **Any reviewer is `nN`** -> handle ALL new comments from BOTH reviewers now, without asking the human, in ONE batch (do NOT push per reviewer — a push re-triggers both reviews):
      1. Fetch new items created after `<ts>`:
         - Codex inline comments (author starts with `chatgpt-codex-connector`).
-        - CodeRabbit inline comments (author starts with `coderabbitai`) **and** its latest review body — parse the folded sections (`🧹 Nitpick comments`, `Actionable comments`) and handle those nits too, not just inline comments.
+        - CodeRabbit inline comments (author starts with `coderabbitai`) **and** its latest review body. CodeRabbit puts real findings in the body, not just inline threads: parse EVERY collapsible section (`Actionable comments`, `🧹 Nitpick comments`, `⚠️ Outside diff range comments` — comments it couldn't post inline due to platform limits — and any others) and handle each. Do not enumerate a fixed allow-list of section names; treat any file/line finding in the body as a comment to handle. Body-only findings have no inline thread to reply to, so reply on the PR conversation or note the fix in the commit instead.
      2. **Handling process (canonical, applies to every review comment):** for each comment, either **address it with a fix or justify** why it needs none, and **reply to every comment** (don't leave any unanswered).
      3. Run the repo's checks (typecheck / tests / lint / e2e as the project requires).
      4. **One commit, one push** with all fixes.

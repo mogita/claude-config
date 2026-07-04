@@ -18,8 +18,8 @@ set -u
 CODEX_PREFIX="chatgpt-codex-connector"
 CR_PREFIX="coderabbitai"
 MINUTES="${1:-7}"
-POLL=25
-GRACE=120 # seconds; a reviewer showing no sign of life by now is treated as absent
+POLL=15
+GRACE=30 # seconds; a reviewer showing no sign of life by now is treated as not-running (absent), so we stop waiting on it
 
 repo=$(gh repo view --json nameWithOwner -q .nameWithOwner 2>/dev/null) || repo=""
 [ -n "$repo" ] || {
