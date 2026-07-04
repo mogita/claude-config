@@ -1,0 +1,24 @@
+# Ignore everything by default
+*
+
+# Always track the gitignore itself
+!.gitignore
+
+# ── Config & Rules ──────────────────────────────
+!CLAUDE.md
+#!settings.json
+
+# ── Skills ─────----------───────────────────────
+# Must un-ignore the dir, then its contents
+!skills/
+!skills/weekly-report/
+!skills/weekly-report/**
+!skills/watch-pr-review/
+!skills/watch-pr-review/**
+# ── Plugins ─────────────────────────────────────
+# Not tracked -- auto-managed, causes merge conflicts
+
+# ── Optional: track if you manually write these ─
+# plans/ are per-project scratch, not global -- keep ignored
+#!plans/
+#!plans/**
