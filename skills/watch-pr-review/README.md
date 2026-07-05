@@ -32,9 +32,9 @@ push ─▶ watch (both reviewers) ─▶ verdict
 ## Config (edit `watch.sh`)
 
 - **Timeout**: passed as an argument, `watch.sh 7` (minutes, shared by both reviewers). Default 7.
-- **`POLL`**: seconds between checks (default 15). Higher = fewer GitHub API calls.
+- **`POLL`**: seconds between checks (default 25). Higher = fewer GitHub API calls.
 - **`MAX_COMMITS`**: stop auto-looping once the PR exceeds this many commits (default 30), a safety valve against endless back-and-forth.
-- **`GRACE`**: seconds a reviewer can stay silent before it's treated as `absent` / not-running (default 30), so a reviewer that isn't set up on the repo doesn't hold the loop for the full timeout.
+- **`GRACE`**: seconds a reviewer can stay silent before it's treated as `absent` / not-running (default 90), so a reviewer that isn't set up on the repo doesn't hold the loop for the full timeout. Keep it above a reviewer's start latency (Codex can take >30s just to post its first 👀) or a slow-but-present reviewer gets falsely skipped.
 
 ## Files
 

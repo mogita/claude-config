@@ -12,21 +12,29 @@
 # Per-reviewer state token: pending | clean | absent | nN  (nN = N new items to handle)
 # Verdict: "RESULT since=<ts> codex=<state> coderabbit=<state>"
 #          "TIMEOUT since=<ts> codex=<state> coderabbit=<state>" | NO_PR | NO_REPO
-# Usage: watch.sh [minutes]  (default 7; shared across both reviewers)
+# Usage: watch.sh [minutes] [pr-number]
+#   minutes:   shared timeout across both reviewers (default 7)
+#   pr-number: watch this PR explicitly instead of the current branch's PR. Lets you
+#              watch an agent-authored PR whose branch is checked out in another worktree.
 set -u
 
 CODEX_PREFIX="chatgpt-codex-connector"
 CR_PREFIX="coderabbitai"
 MINUTES="${1:-7}"
-POLL=15
-GRACE=30 # seconds; a reviewer showing no sign of life by now is treated as not-running (absent), so we stop waiting on it
+PR_ARG="${2:-}"
+POLL=25
+GRACE=90 # seconds a reviewer can stay silent before it's treated as not-running (absent); must exceed a reviewer's START latency (Codex can take >30s just to post its first 👀), else a slow-but-present reviewer is falsely skipped
 
 repo=$(gh repo view --json nameWithOwner -q .nameWithOwner 2>/dev/null) || repo=""
 [ -n "$repo" ] || {
   echo "NO_REPO"
   exit 0
 }
-pr=$(gh pr view --json number -q .number 2>/dev/null) || pr=""
+if [ -n "$PR_ARG" ]; then
+  pr="$PR_ARG"
+else
+  pr=$(gh pr view --json number -q .number 2>/dev/null) || pr=""
+fi
 [ -n "$pr" ] || {
   echo "NO_PR"
   exit 0
@@ -41,7 +49,7 @@ if [ "${commits:-0}" -gt "$MAX_COMMITS" ]; then
   exit 0
 fi
 
-sha=$(gh pr view --json headRefOid -q .headRefOid 2>/dev/null) || sha=""
+sha=$(gh pr view "$pr" --json headRefOid -q .headRefOid 2>/dev/null) || sha=""
 
 since=$(date -u +%Y-%m-%dT%H:%M:%SZ)
 start=$(date +%s)

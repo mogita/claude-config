@@ -17,7 +17,7 @@ Right after any `git push` to a PR branch (the push triggers a fresh review from
    bash "$SKILL_DIR/watch.sh" 7
    ```
 
-   `$SKILL_DIR` is this skill's directory. `7` is the shared timeout in minutes (the human tweaks this; it cuts both reviewers). It resolves the repo + PR from the current branch, so no other args are needed. It prints one verdict line when both reviewers settle or the timeout hits.
+   `$SKILL_DIR` is this skill's directory. `7` is the shared timeout in minutes (the human tweaks this; it cuts both reviewers). It resolves the repo + PR from the current branch, so no other args are needed. Append a PR number (`watch.sh 7 256`) to watch a specific PR without checking out its branch, e.g. an agent-authored PR whose branch lives in another worktree. It prints one verdict line when both reviewers settle or the timeout hits.
 
 2. **Do not busy-wait.** The background process polls; you'll be notified when it exits. Don't poll GitHub yourself or start a second watcher (one at a time).
 
