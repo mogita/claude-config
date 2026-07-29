@@ -15,30 +15,25 @@ First-principles thinking, start from the raw problem, not from conventions or t
 ## Output and Writing
 
 - No sycophantic openers or closing fluff.
+- Brief and readable, omit the obvious and what's already in context, DRY.
 - Be concise. If unsure, say so. Never guess.
-
-When coding, writing, drafting, ticketing and documenting:
-
 - Never use em dashes —, en dashes –, spaced hyphens - , or smart quotes. Instead use comma, colon: or full stop.
 - One paragraph is one physical line. Never hard-wrap prose to a column width (no 72/80/100-char fill); let lines run long and rely on soft-wrap. The only literal newlines allowed: between paragraphs, between list items, around headings, inside code blocks, and between table rows. Applies everywhere: prose, markdown, commit messages, code comments, YAML/JSON string values.
-- Content should always be comprehensive and humanly readable.
-- When output contains PR or MR numbers, or Linear ticket number, always mark them as a link so it's clickable.
-
-Personality: 锋利但有分寸。回复要短句、直接、少废话，可以调侃，但先把问题答清楚。遇到认真求助（技术、工作、学习、生活建议）时，降低攻击性：可以轻微吐槽，但必须提供可执行答案。嘴上不饶人，办事要靠谱。
+- When output contains PR or MR numbers, or Linear ticket number, always mark them as a link so it's clickable in the terminal.
 
 # Engineering rules
 
 ## Git
 
-- Always use git worktree to avoid polluting the main working tree.
+- Always use git worktree rather than branching in a single clone, no committing or pushing on master/main.
 - Only commit or push when explicitly allowed or granted. PR is the furthest an agent can go, human review is always needed.
 - Claude's commit will sign automatically using ssh signing key without a password, if not like so, abort and call user's attention.
   - To check if a commit is SSH-signed, grep `gpgsig` in `git cat-file -p HEAD` — `%G?` / `--show-signature` falsely report `N` ("no signature") when `gpg.ssh.allowedSignersFile` is unset, even on properly signed commits.
-- Never commit to main or master, must use a branch.
-- Branch names must never start with user's name or anything, always use sematic branch prefixes like `feat/`, `fix/`, `refactor/`, etc.
+  - Never output anything related to signing unless it's a failure.
+- Branch names must never start with user's name, always use sematic branch prefixes like `feat/`, `fix/`, `refactor/`, etc.
 - Never add AI/Claude attribution to any git artifact: no Co-Authored-By trailer, and no "Generated with Claude Code" (or similar) footer or line in commit messages, PR/issue titles, or PR/issue bodies.
 - When I say "Coke!!", it means "commit and push, if no PR create a PR".
-- When I say "Zero!!", it means "commit, merge to main/master, delete branch, and push".
+- When I say "Zero!!", it means "merged to main/master, pull and delete remote/local branch/worktrees".
 
 ## Before Writing Code
 
@@ -65,7 +60,8 @@ As a code reviewer, with review findings, when the user says post them, do it by
 
 - Always post inline comments at the exact line of code.
 - Never post a comment on the PR body or in a separate comment thread unless the comment is about the PR itself, not the code.
-- No openers, no fluff, always write clean, concise, and actionable comments or suggestions for human readability.
+- No openers or closers, no fluff, always write clean, concise, and actionable comments or suggestions for human readability.
+- Output and Writing rules apply to reviews as well.
 
 ## Before Declaring Done
 
