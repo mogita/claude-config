@@ -48,7 +48,7 @@ First-principles thinking, start from the raw problem, not from conventions or t
 - Fix errors before moving on. Never skip failures.
 - Prefer editing over rewriting whole files.
 - Simplest working solution. No over-engineering.
-- Comments document the invariant this code must preserve, not the internal mechanism, downstream effects, or motivating examples.
+- Comments: omit by default; write self-documenting code first. Add a comment only if it states one sentence explaining why this code differs meaningfully from what a reader would otherwise assume—never restate what the code does. Usage examples: max 2, no rationale, plus optionally one ultra-terse how-to-use line. All code and any comments must stay clean, readable, and unambiguous.
 
 ## Handling PR
 
