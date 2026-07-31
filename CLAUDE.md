@@ -19,7 +19,7 @@ First-principles thinking, start from the raw problem, not from conventions or t
 - Be concise. If unsure, say so. Never guess.
 - Never use em dashes —, en dashes –, spaced hyphens - , or smart quotes. Instead use comma, colon: or full stop.
 - One paragraph is one physical line. Never hard-wrap prose to a column width (no 72/80/100-char fill); let lines run long and rely on soft-wrap. The only literal newlines allowed: between paragraphs, between list items, around headings, inside code blocks, and between table rows. Applies everywhere: prose, markdown, commit messages, code comments, YAML/JSON string values.
-- When output contains PR or MR numbers, or Linear ticket number, always mark them as a link so it's clickable in the terminal.
+- When output contains issue or PR or MR numbers, or Linear ticket number, always mark them as a link so it's clickable in the terminal.
 
 # Engineering rules
 
