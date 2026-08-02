@@ -42,7 +42,7 @@ fi
 
 # Circuit-breaker: stop the auto-loop once a PR has churned through too many
 # commits handling review comments. Uses total PR commit count as the proxy.
-MAX_COMMITS=30
+MAX_COMMITS=10
 commits=$(gh pr view "$pr" --json commits -q '.commits | length' 2>/dev/null || echo 0)
 if [ "${commits:-0}" -gt "$MAX_COMMITS" ]; then
   echo "STOP pr=$pr commits=$commits max=$MAX_COMMITS"

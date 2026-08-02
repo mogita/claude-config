@@ -45,6 +45,9 @@ Right after any `git push` to a PR branch (the push triggers a fresh review from
 
 - You own the watcher process; it exits on its own at a verdict or the timeout. If the human interrupts the loop, stop the background task.
 - Exactly one watcher per push. When looping after handling comments, the prior watcher has already exited, so a new one after the next push is correct.
+- To trigger a new review:
+    - Push a new commit to the PR branch to trigger coderabbit. Do not mention coderabbit directly.
+    - Add a new comment mentioning `@codex review` to trigger codex after a push.
 
 ## Detection notes
 
