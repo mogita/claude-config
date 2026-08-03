@@ -17,6 +17,9 @@
 !skills/watch-pr-review/**
 !skills/fanout/
 !skills/fanout/**
+# The negations above outrank the global ignore, so re-ignore tool dirs here
+.omo
+.codegraph
 # ── Plugins ─────────────────────────────────────
 # Not tracked -- auto-managed, causes merge conflicts
 
